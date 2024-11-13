@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhythmodora</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .window-container {
+            background-color: rgba(0, 0, 0, 0.95);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            color: white;
+            font-size: 32px;
+            margin: 0 0 40px 0;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+        }
+
+        .main-text {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .rhythmodora-badge {
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            background-color: #00ff00;
+            border: none;
+            color: black;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: lowercase;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+        }
+
+        .button:hover {
+            background-color: #00ff00;
+            box-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+            transform: scale(1.05);
+        }
+
+        .button.large {
+            padding: 15px 60px;
+        }
+
+        .footer-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #000000;
+            padding: 30px;
+            border: 1px solid #00ff00;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 0 10px #00ff00;
+        }
+
+        .close {
+            color: #00ff00;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 25px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .form-title {
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="window-container">
+        <div class="logo">Rhythmodora</div>
+
+        <div class="main-text">
+            Миллионы треков.<br>
+            Бесплатно в <span class="rhythmodora-badge">Rhythmodora</span>
+        </div>
+
+        <div class="buttons">
+            <button class="button">зарегистрироваться</button>
+            <button class="button large">войти в помощью гугл</button>
+        </div>
+
+        <div class="footer-text">
+            Впервые в <span class="rhythmodora-badge">Rhythmodora</span>
+        </div>
+    </div>
+
+    <!-- Модальные окна остаются теми же -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="form-title">Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Пароль" required>
+                </div>
+                <button class="button" type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="form-title">Вход</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Пароль" required>
+                </div>
+                <button class="button" type="submit">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript остается тем же
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
+        }
+
+        document.querySelectorAll('.button')[0].addEventListener('click', () => showModal('registerModal'));
+        document.querySelectorAll('.button')[1].addEventListener('click', () => showModal('loginModal'));
+
+        document.querySelectorAll('.close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                closeBtn.closest('.modal').style.display = 'none';
+            });
+        });
+
+        document.getElementById('registerForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Регистрация успешна!');
+            closeModal('registerModal');
+        }
+
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('Вход успешный!');
+            closeModal('loginModal');
+        }
+    </script>
+</body>
+</html>
